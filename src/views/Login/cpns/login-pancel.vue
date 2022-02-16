@@ -40,7 +40,7 @@ export default defineComponent({
 
     const handleLoginClick = () => {
       // console.log('handleLoginClick', accountRef.value)
-      accountRef.value?.loginAction() // ?.可选链
+      accountRef.value?.loginAction(isKeepPassword.value) // ?.可选链
     }
     return {
       isKeepPassword,
