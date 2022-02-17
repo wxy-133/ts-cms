@@ -4,13 +4,38 @@ const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
+// let proxyObj = {}
+
+// proxyObj['/'] = {
+//   //目标地址
+//   target: 'http://152.136.185.210:5000',
+//   //发送请求头中host会设置成target
+//   changeOrigin: true,
+//   //不重写请求地址
+//   pathRewrite: {
+//     '^/': '/'
+//   }
+// }
 module.exports = {
-  // outputDir:"./build" //打包文件夹
-  publicPath: './',
+  // 1.配置方式一: CLI提供的属性
+  outputDir: './build',
+  // publicPath: './',
+  devServer: {
+    port: 8080,
+    proxy: {
+      '^/api': {
+        target: 'http://152.136.185.210:5000',
+        pathRewrite: {
+          '^/api': ''
+        },
+        changeOrigin: true
+      }
+    }
+  },
   configureWebpack: {
     resolve: {
       alias: {
-        src: '@',
         components: '@/components'
       }
     },

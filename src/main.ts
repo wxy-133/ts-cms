@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import { globalRegister } from './global'
 import './assets/css/index.css'
+import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 
