@@ -4,32 +4,21 @@ const Components = require('unplugin-vue-components/webpack')
 const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
-// let proxyObj = {}
-
-// proxyObj['/'] = {
-//   //目标地址
-//   target: 'http://152.136.185.210:5000',
-//   //发送请求头中host会设置成target
-//   changeOrigin: true,
-//   //不重写请求地址
-//   pathRewrite: {
-//     '^/': '/'
-//   }
-// }
 module.exports = {
   // 1.配置方式一: CLI提供的属性
   outputDir: './build',
   // publicPath: './',
   devServer: {
-    port: 8080,
+    hot: true,
+    compress: true,
+    disableHostCheck: true,
     proxy: {
-      '^/api': {
-        target: 'http://152.136.185.210:5000',
+      '/api': {
+        target: 'http://152.136.185.210:5000', //你的接口地址
+        changeOrigin: true, //是否跨域
         pathRewrite: {
-          '^/api': ''
-        },
-        changeOrigin: true
+          '^/api': '' //接口重写，表示/api开头的就是代理到target,即是http://xxxx:8002/Home
+        }
       }
     }
   },
