@@ -6,6 +6,7 @@ import {
   requestUserMenusByRoleId
 } from '@/service/login/login'
 import localCache from '@/utils/cache'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 import router from '@/router'
 
 import { IAccount } from '@/service/login/type'
@@ -31,6 +32,14 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+      // 注册路由
+      // userMenus => routes
+      const routes = mapMenusToRoutes(userMenus)
+      console.log(routes)
+      // 将routes添加到 router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
@@ -52,7 +61,6 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userMenus = userMenusResult.data
       commit('changeUserMenus', userMenus)
       localCache.setCache('userMenus', userMenus)
-
       // 4.跳到首页
       router.push('/main')
     },

@@ -5,12 +5,13 @@ import store from './store'
 import { globalRegister } from './global'
 import './assets/css/index.css'
 import 'element-plus/dist/index.css'
-
+import { setupStore } from './store'
 const app = createApp(App)
 
 app.use(store)
 app.use(router)
 app.use(globalRegister).mount('#app')
+setupStore()
 
 // import './services/axios_demo.ts'
 

@@ -9,13 +9,18 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login/login.vue')
+    name: 'login',
+    component: () => import('../views/login/login.vue')
   },
   {
     path: '/main',
-    name: 'Main',
-    component: () => import('../views/Main/main.vue')
+    name: 'main',
+    component: () => import('../views/main/main.vue'),
+    children: []
+  },
+  {
+    path: '/:pathMatch(.*)',
+    component: () => import('@/views/not-found/not-found.vue')
   }
 ]
 
