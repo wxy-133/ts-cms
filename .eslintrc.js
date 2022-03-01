@@ -19,6 +19,10 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/no-var-requires': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'space-before-function-paren': 0
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'space-before-function-paren': 0,
+    'no-unused-vars':'off',
+      //关闭prettier
+    "prettier/prettier": "off"
   }
 }

@@ -9,9 +9,9 @@ import { setupStore } from './store'
 const app = createApp(App)
 
 app.use(store)
+setupStore()
 app.use(router)
 app.use(globalRegister).mount('#app')
-setupStore()
 
 // import './services/axios_demo.ts'
 

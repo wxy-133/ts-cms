@@ -11,7 +11,9 @@ import {
   Expand,
   Setting,
   Location,
-  Document
+  Document,
+  ArrowRight,
+  Delete
 } from '@element-plus/icons'
 const components = [
   Edit,
@@ -23,7 +25,9 @@ const components = [
   List,
   Setting,
   Location,
-  Document
+  Document,
+  ArrowRight,
+  Delete
 ]
 
 export default function (app: App): void {

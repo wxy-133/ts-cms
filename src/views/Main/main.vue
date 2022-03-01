@@ -9,7 +9,9 @@
           <nav-header @foldChange="handleFoldChange"
         /></el-header>
         <el-main class="el-content">
-          <router-view></router-view>
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -17,23 +19,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import NavMenu from '@/components/nav-menu'
-import NavHeader from '@/components/nav-header'
+import { defineComponent, ref } from "vue";
+import NavMenu from "@/components/nav-menu";
+import NavHeader from "@/components/nav-header";
 export default defineComponent({
   components: { NavMenu, NavHeader },
   setup() {
-    const isCollapse = ref(false)
+    const isCollapse = ref(false);
     const handleFoldChange = (isFold: boolean) => {
-      isCollapse.value = isFold
-    }
+      isCollapse.value = isFold;
+    };
 
     return {
       isCollapse,
-      handleFoldChange
-    }
-  }
-})
+      handleFoldChange,
+    };
+  },
+});
 </script>
 <style scoped lang="less">
 .main {
@@ -57,7 +59,10 @@ export default defineComponent({
   // height: calc(100% - 48px);
   height: calc(100%);
 }
-
+.page-info {
+  background-color: #fff;
+  border-radius: 5px;
+}
 .el-header,
 .el-footer {
   display: flex;

@@ -20,7 +20,8 @@ module.exports = {
           '^/api': '' //接口重写，表示/api开头的就是代理到target,即是http://xxxx:8002/Home
         }
       }
-    }
+    },
+    historyApiFallback:true
   },
   configureWebpack: {
     resolve: {

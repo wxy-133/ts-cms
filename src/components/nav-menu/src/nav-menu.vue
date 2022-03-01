@@ -5,14 +5,14 @@
       <span class="title" v-if="!collapse">Vue3+TS</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       :collapse="collapse"
       class="el-menu-vertical"
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
     >
-      <template v-for="item in useMenus" :key="item.id">
+      <template v-for="item in userMenus" :key="item.id">
         <!-- 二级菜单 -->
         <template v-if="item.type === 1">
           <!-- 二级菜单的可以展开的标题 -->
@@ -46,33 +46,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { defineComponent, computed, ref } from "vue";
+import { useStore } from "@/store";
+import { useRouter, useRoute } from "vue-router";
 
+import { pathMapToMenu } from "@/utils/map-menus";
 export default defineComponent({
   props: {
     collapse: {
       type: Boolean,
-      dafault: false
-    }
+      dafault: false,
+    },
   },
   setup() {
-    const store = useStore()
-    const useMenus = store.state.login.userMenus
-    const router = useRouter()
+    // store
+    const store = useStore();
+    const userMenus = computed(() => store.state.login.userMenus);
+
+    // router
+    const router = useRouter();
+    const route = useRoute();
+    const currentPath = route.path;
+    // data
+    const menu = pathMapToMenu(userMenus.value, currentPath);
+    const defaultValue = ref(menu.id + "");
+    // event handle
     const handleMenuItemClick = (item: any) => {
       // console.log("--------");
       router.push({
-        path: item.url ?? '/not-found'
-      })
-    }
+        path: item.url ?? "/not-found",
+      });
+    };
     return {
-      useMenus,
-      handleMenuItemClick
-    }
-  }
-})
+      userMenus,
+      defaultValue,
+      handleMenuItemClick,
+    };
+  },
+});
 </script>
 <style scoped lang="less">
 .nav-menu {
