@@ -40,7 +40,7 @@ export const contentTableConfig = {
       slotName: 'handler'
     }
   ],
-  shoeIndexColum: true,
-  showSelectColum: true
+  showIndexColumn: true,
+  showSelectColumn: true
 }
 

@@ -33,7 +33,8 @@
                 <el-date-picker
                   style="width: 100%"
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 ></el-date-picker>
               </template>
             </el-form-item>
@@ -81,17 +82,32 @@ export default defineComponent({
   emits: ["update:modelValue"],
   setup(props, { emit }) {
     const formData = ref({ ...props.modelValue });
+    // watch(
+    //   () => props.modelValue,
+    //   (newValue) => {
+    //     formData.value = { ...newValue };
+    //   }
+    // );
+    // 01重置写法
     watch(
       formData,
       (newValue) => {
-        console.log(newValue);
+        // console.log(newValue);
         emit("update:modelValue", newValue);
       },
       {
         deep: true,
       }
     );
-    return { formData };
+    // 02重置写法
+    const handleValueChange = (value: any, field: string) => {
+      emit("update:modelValue", { ...props.modelValue, [field]: value });
+    };
+
+    return {
+      handleValueChange,
+      formData,
+    };
   },
 });
 </script>
