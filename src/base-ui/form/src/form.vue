@@ -1,25 +1,34 @@
 <template>
   <div class="hy-form">
-    <div class="header"><slot name="header"></slot></div>
+    <div class="header">
+      <slot name="header"></slot>
+    </div>
     <el-form :label-width="labelWidth">
       <el-row>
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
-            <el-form-item :label="item.label" :rules="item.rules" :style="itemStyle">
+            <el-form-item
+              v-if="!item.isHidden"
+              :label="item.label"
+              :rules="item.rules"
+              :style="itemStyle"
+            >
               <template v-if="item.type === 'input' || item.type === 'password'">
                 <el-input
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.field}`]"
                   :show-password="item.type === 'password'"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 />
               </template>
               <template v-else-if="item.type === 'select'">
                 <el-select
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
-                  v-model="formData[`${item.field}`]"
                   style="width: 100%"
+                  :model-value="modelValue[`${item.field}`]"
+                  @update:modelValue="handleValueChange($event, item.field)"
                 >
                   <el-option
                     v-for="option in item.options"
@@ -42,12 +51,14 @@
         </template>
       </el-row>
     </el-form>
-    <div class="footer"><slot name="footer"></slot></div>
+    <div class="footer">
+      <slot name="footer"></slot>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref, watch } from "vue";
+import { defineComponent, PropType } from "vue";
 import { IFormItem } from "../types";
 
 export default defineComponent({
@@ -81,32 +92,25 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
-    const formData = ref({ ...props.modelValue });
+    // const formData = ref({ ...props.modelValue })
+
     // watch(
-    //   () => props.modelValue,
+    //   formData,
     //   (newValue) => {
-    //     formData.value = { ...newValue };
+    //     console.log(newValue)
+    //     emit('update:modelValue', newValue)
+    //   },
+    //   {
+    //     deep: true
     //   }
-    // );
-    // 01重置写法
-    watch(
-      formData,
-      (newValue) => {
-        // console.log(newValue);
-        emit("update:modelValue", newValue);
-      },
-      {
-        deep: true,
-      }
-    );
-    // 02重置写法
+    // )
+
     const handleValueChange = (value: any, field: string) => {
       emit("update:modelValue", { ...props.modelValue, [field]: value });
     };
 
     return {
       handleValueChange,
-      formData,
     };
   },
 });
@@ -115,9 +119,5 @@ export default defineComponent({
 <style scoped lang="less">
 .hy-form {
   padding-top: 22px;
-  padding-bottom: 22px;
-}
-.header {
-  color: red;
 }
 </style>

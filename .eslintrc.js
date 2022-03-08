@@ -23,6 +23,8 @@ module.exports = {
     'space-before-function-paren': 0,
     'no-unused-vars':'off',
       //关闭prettier
-    "prettier/prettier": "off"
+    "prettier/prettier": "off",
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-empty-function':'off'
   }
 }
