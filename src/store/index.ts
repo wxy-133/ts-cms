@@ -3,6 +3,7 @@ import { createStore, Store, useStore as useVuexStore } from 'vuex'
 
 import login from './login/login'
 import system from './main/system/system'
+import dashboard from './main/analysis/dashboard'
 
 import { IRootState, IStoreType } from './types'
 
@@ -12,7 +13,8 @@ const store = createStore<IRootState>({
       name: 'coderwhy',
       age: 18,
       entireDepartment: [],
-      entireRole: []
+      entireRole: [],
+      entireMenu:[]
     }
   },
   mutations: {
@@ -21,6 +23,9 @@ const store = createStore<IRootState>({
     },
     changeEntireRole(state, list) {
       state.entireRole = list
+    },
+    changeEntireMenu(state, list) {
+      state.entireMenu = list
     }
   },
   getters: {},
@@ -43,17 +48,20 @@ const store = createStore<IRootState>({
       // 2.保存数据
       commit('changeEntireDepartment', departmentList)
       commit('changeEntireRole', roleList)
+      commit('changeEntireMenu', menuList)
     }
   },
   modules: {
     login,
-    system
+    system,
+    dashboard
   }
 })
 
 export function setupStore() {
   store.dispatch('login/loadLocalLogin')
   store.dispatch('getInitialDataAction')
+  store.dispatch("dashboard/getDashboardDataAction");
 }
 
 export function useStore(): Store<IStoreType> {
