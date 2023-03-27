@@ -2,19 +2,19 @@
 
 # ts-cms
 
-## Project setup
+## 安装
 
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### 启动
 
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### 打包
 
 ```
 yarn build
