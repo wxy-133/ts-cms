@@ -10,12 +10,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../views/login/login.vue')
+    component: () => import('@/views/login/login.vue')
   },
   {
     path: '/main',
     name: 'main',
-    component: () => import('../views/main/main.vue'),
+    component: () => import('@/views/main/main.vue'),
     children: []
   },
   {
