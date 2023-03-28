@@ -5,19 +5,19 @@
 ## 安装
 
 ```
-yarn install
+npm install
 ```
 
 ### 启动
 
 ```
-yarn serve
+npm run serve
 ```
 
 ### 打包
 
 ```
-yarn build
+npm run build
 ```
 
 ### Lints and fixes files
